@@ -46,4 +46,9 @@ public class TestIntegrationPageClasses extends TestBaseClass {
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/");
 
     }
+     @AfterTest
+    public void tearDown(){
+        if (driver!=null){
+            driver.quit();
+        }
 }
