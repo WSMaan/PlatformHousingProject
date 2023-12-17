@@ -1,6 +1,6 @@
 # Platform Housing Project
 
-## GitHub Repository - 
+## GitHub Repository - https://github.com/WSMaan/PlatformHousingProject
 
 ## Project Structure
 
