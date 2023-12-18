@@ -2,9 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true"
-          name="C:/Users/Maan9/IdeaProjects/PlatformHousingProject/src/test/java/TestPages/TestIntegrationPageClasses.java">
+          name="C:/Users/Maan9/IdeaProjects/PlatformHousingProject/src/test/java/testPages/TestIntegrationPageClasses.java">
         <classes>
-            <class name="TestPages.TestIntegrationPageClasses">
+            <class name="testPages.TestIntegrationPageClasses">
                 <methods>
                     <include name="integrationTest"/>
                 </methods>

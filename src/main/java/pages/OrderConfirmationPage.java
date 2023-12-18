@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,10 +16,9 @@ public class OrderConfirmationPage {
         this.driver = driver;
     }
 
-    public void orderConfirmationMessage() {
+    public String orderConfirmationMessage() {
         WebElement confirmationMessage = driver.findElement(By.xpath("//span[@class='title']"));
-
-        String messageText = confirmationMessage.getText();
+        return confirmationMessage.getText();
 
     }
 

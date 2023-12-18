@@ -1,7 +1,8 @@
-package TestPages;
+package testPages;
 
-import Pages.*;
-
+import pages.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
@@ -12,26 +13,31 @@ import static enums.Browsers.browsers.FIREFOX;
 public class TestOrderConfirmationPage extends TestBaseClass {
     OrderConfirmationPage orderConfirmationPage;
 
+    private Logger logger = LoggerFactory.getLogger(TestOrderConfirmationPage.class);
 
     @Test
     public void confirmOrder() {
         orderConfirmationPage = new OrderConfirmationPage(driver);
 
         orderConfirmationPage.orderConfirmationMessage();
+        String messageText = orderConfirmationPage.orderConfirmationMessage();
+        logger.info("Verify the order confirmation text. " + messageText);
 
         orderConfirmationPage.selectMenu();
 
         orderConfirmationPage.logoutButton();
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/");
+        logger.info("Logout Successful");
     }
 
     @AfterTest
-    public void tearDown(){
-        if (driver !=null){
+    public void tearDown() {
+        if (driver != null) {
             driver.quit();
         }
     }
+
     @BeforeClass
     public void loginBeforeProductTests() {
 
@@ -55,8 +61,9 @@ public class TestOrderConfirmationPage extends TestBaseClass {
         step1Page.checkoutContinue();
 
         CheckoutStep2Page step2Page = new CheckoutStep2Page(driver);
-        String actualItem1Price = step2Page.checkItem1("Sauce Labs Backpack");
-        String actualItem2Price = step2Page.checkItem2("Sauce Labs Bike Light");
+        double actualItem1Price = step2Page.checkItem1("Sauce Labs Backpack");
+        double actualItem2Price = step2Page.checkItem2("Sauce Labs Bike Light");
+
         step2Page.finishButton();
 
     }

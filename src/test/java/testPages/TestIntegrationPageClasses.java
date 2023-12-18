@@ -1,7 +1,8 @@
-package TestPages;
+package testPages;
 
-import Pages.*;
+import pages.*;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 import static enums.Browsers.browsers.FIREFOX;
@@ -18,6 +19,7 @@ public class TestIntegrationPageClasses extends TestBaseClass {
         loginPage.enterPassword(password);
         loginPage.clickLoginButton();
 
+
         ProductPage productPage = new ProductPage(driver);
         productPage.selectItem1();
         productPage.selectItem2();
@@ -31,8 +33,8 @@ public class TestIntegrationPageClasses extends TestBaseClass {
         step1Page.checkoutContinue();
 
         CheckoutStep2Page step2Page = new CheckoutStep2Page(driver);
-        String actualItem1Price = step2Page.checkItem1("Sauce Labs Backpack");
-        String actualItem2Price = step2Page.checkItem2("Sauce Labs Bike Light");
+        double actualItem1Price = step2Page.checkItem1("Sauce Labs Backpack");
+        double actualItem2Price = step2Page.checkItem2("Sauce Labs Bike Light");
         step2Page.finishButton();
 
         orderConfirmationPage = new OrderConfirmationPage(driver);
@@ -46,9 +48,11 @@ public class TestIntegrationPageClasses extends TestBaseClass {
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/");
 
     }
-     @AfterTest
-    public void tearDown(){
-        if (driver!=null){
+
+    @AfterTest
+    public void tearDown() {
+        if (driver != null) {
             driver.quit();
         }
+    }
 }

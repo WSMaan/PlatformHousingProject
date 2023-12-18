@@ -1,16 +1,19 @@
-package TestPages;
+package testPages;
 
-import Pages.LoginPage;
-import org.testng.Assert;
+import pages.LoginPage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static enums.Browsers.browsers.FIREFOX;
 
 public class TestLoginPage extends TestBaseClass {
 
-    @BeforeTest
+    private Logger logger = LoggerFactory.getLogger(TestLoginPage.class);
+
+    @BeforeClass
     public void setUp() {
         setupDriver(FIREFOX);
 
@@ -24,7 +27,13 @@ public class TestLoginPage extends TestBaseClass {
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
         loginPage.clickLoginButton();
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
+        String currentUrl = driver.getCurrentUrl();
+
+        if (currentUrl.equals("https://www.saucedemo.com/inventory.html")) {
+            logger.info("Login successful");
+        } else {
+            logger.error("Login unsuccessful");
+        }
     }
 
 

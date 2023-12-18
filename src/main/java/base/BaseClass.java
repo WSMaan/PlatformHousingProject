@@ -6,35 +6,67 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import static enums.Browsers.browsers.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
-//The BaseClass provides a common base for initializing WebDriver instances
-//  based on the specified browser type.
+import static enums.Browsers.browsers.*;
 
 public class BaseClass {
     private WebDriver driver;
+    private Properties properties;
+
+    public BaseClass() {
+        loadProperties();
+    }
 
     public WebDriver selectDriver(Browsers.browsers browser) {
-        if (CHROME.equals(browser)) {
-            System.setProperty("webdriver.chrome.driver", "C:\\Users\\Maan9\\Downloads\\chrome-win64(1)\\chrome-win64\\chrome.exe");
-            driver = new ChromeDriver();
-            driver.manage().window().maximize();
+        String driverPath = getDriverPath(browser);
 
-        } else if (FIREFOX.equals(browser)) {
-            System.setProperty("webdriver.gecko.driver", "C:\\Users\\Maan9\\Downloads\\geckodriver-v0.33.0-win64\\geckodriver.exe");
-            driver = new FirefoxDriver();
-            driver.manage().window().maximize();
-
-        }else if (EDGE.equals(browser)){
-            System.setProperty("webdriver.edge.driver","C:\\Users\\Maan9\\Downloads\\edgedriver_win64\\msedgedriver.exe");
-            driver=new EdgeDriver();
-            driver.manage().window().maximize();
-
-        } else {
-            throw new IllegalArgumentException(("Unsupported Browser Type " + browser));
+        switch (browser) {
+            case CHROME:
+                System.setProperty("webdriver.chrome.driver", driverPath);
+                driver = new ChromeDriver();
+                break;
+            case FIREFOX:
+                System.setProperty("webdriver.gecko.driver", driverPath);
+                driver = new FirefoxDriver();
+                break;
+            case EDGE:
+                System.setProperty("webdriver.edge.driver", driverPath);
+                driver = new EdgeDriver();
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported Browser Type " + browser);
         }
+
+        if (driver != null) {
+            driver.manage().window().maximize();
+        }
+
         return driver;
     }
+
+
+    private void loadProperties() {
+        properties = new Properties();
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("browsers.properties")) {
+            if (input == null) {
+                System.out.println("Sorry, unable to find config.properties");
+                return;
+            }
+            properties.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private String getDriverPath(Browsers.browsers browser) {
+        // Assuming browser names in the properties file match the enum names.
+        String browserKey = browser.toString().toLowerCase() + ".driver.path";
+        return properties.getProperty(browserKey);
+    }
+
     public WebDriver getDriver() {
         return driver;
     }

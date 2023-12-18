@@ -6,7 +6,7 @@
 
 - **base:** Initializes WebDriver instances based on the specified browser type.
 
-- **Pages:**
+- **pages:**
     - `LoginPage`: Represents login functionality.
     - `ProductPage`: Interacts with products, selects items, views the shopping basket, and proceeds to checkout.
     - `CheckoutStep1Page`: Users enter personal information during checkout.

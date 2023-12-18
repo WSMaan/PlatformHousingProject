@@ -1,6 +1,6 @@
-package TestPages;
+package testPages;
 
-import Pages.LoginPage;
+import pages.LoginPage;
 import base.BaseClass;
 import enums.Browsers;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +13,7 @@ public class TestBaseClass {
     protected LoginPage loginPage;
 
     protected BaseClass baseClass = new BaseClass();
+
 
     //read login details from config file
     protected ValidLoginDetailsConfigReader configReaderValidLogin = new ValidLoginDetailsConfigReader();

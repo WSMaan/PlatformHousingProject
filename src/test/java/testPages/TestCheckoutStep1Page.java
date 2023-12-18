@@ -1,8 +1,10 @@
-package TestPages;
+package testPages;
 
-import Pages.CheckoutStep1Page;
-import Pages.LoginPage;
-import Pages.ProductPage;
+import pages.CheckoutStep1Page;
+import pages.LoginPage;
+import pages.ProductPage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
@@ -12,6 +14,7 @@ import static enums.Browsers.browsers.EDGE;
 
 public class TestCheckoutStep1Page extends TestBaseClass {
     CheckoutStep1Page step1Page;
+    private Logger logger= LoggerFactory.getLogger(TestCheckoutStep1Page.class);
 
 
     @Test
@@ -19,8 +22,14 @@ public class TestCheckoutStep1Page extends TestBaseClass {
         step1Page = new CheckoutStep1Page(driver);
 
         step1Page.enterFirstName(firstName);
+        logger.info("\"Entering first name. ");
+
         step1Page.enterLastName(lastName);
+        logger.info("\"Entering last name. ");
+
         step1Page.enterZipCode(zipCode);
+        logger.info("\"Entering Zip Code. ");
+
         step1Page.checkoutContinue();
         Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/checkout-step-two.html");
     }
