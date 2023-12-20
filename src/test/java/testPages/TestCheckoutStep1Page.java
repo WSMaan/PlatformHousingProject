@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.CheckoutStep1Page;
 import pages.LoginPage;
@@ -16,7 +17,7 @@ public class TestCheckoutStep1Page extends TestBaseClass {
 
     private Logger logger = LoggerFactory.getLogger(TestCheckoutStep1Page.class);
 
-    @BeforeClass
+    @BeforeTest
     public void loginBeforeProductTests() {
 
         setupDriver(EDGE);
