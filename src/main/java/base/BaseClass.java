@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import static enums.Browsers.browsers.*;
-
 public class BaseClass {
     private WebDriver driver;
     private Properties properties;
@@ -39,12 +37,15 @@ public class BaseClass {
             default:
                 throw new IllegalArgumentException("Unsupported Browser Type " + browser);
         }
+        windowMaximize();
 
+        return driver;
+    }
+
+    private void windowMaximize() {
         if (driver != null) {
             driver.manage().window().maximize();
         }
-
-        return driver;
     }
 
 

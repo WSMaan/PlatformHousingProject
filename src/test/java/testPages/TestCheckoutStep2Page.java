@@ -1,38 +1,61 @@
 package testPages;
 
-import pages.CheckoutStep1Page;
-import pages.CheckoutStep2Page;
-import pages.LoginPage;
-import pages.ProductPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import pages.CheckoutStep1Page;
+import pages.CheckoutStep2Page;
+import pages.LoginPage;
+import pages.ProductPage;
 
+import static enums.Browsers.browsers.EDGE;
 import static enums.Browsers.browsers.FIREFOX;
 
 public class TestCheckoutStep2Page extends TestBaseClass {
-    CheckoutStep2Page step2Page;
+
     private Logger logger = LoggerFactory.getLogger(TestCheckoutStep2Page.class);
+
+    @BeforeTest
+    public void login_Before_ProductTests()  {
+
+        setupDriver(EDGE);
+        //(FIREFOX);
+        //(CHROME);
+
+
+        loginPage = new LoginPage(driver);
+
+        openApplication();
+        loginPage.login(username,password);
+
+        productPage = new ProductPage(driver);
+        productPage.select_Items_and_Checkout();
+
+        step1Page = new CheckoutStep1Page(driver);
+        step1Page.enter_Userdetails_and_Checkout(firstName, lastName, zipCode);
+    }
 
     @Test
     public void testStep2Page() {
         step2Page = new CheckoutStep2Page(driver);
 
-        double actualItem1Price = step2Page.checkItem1("Sauce Labs Backpack");
+        double actualItem1Price = step2Page.checkItem1();
         Assert.assertEquals(actualItem1Price, 29.99, "Item 1 price is not as expected");
 
-        double actualItem2Price = step2Page.checkItem2("Sauce Labs Bike Light");
+        double actualItem2Price = step2Page.checkItem2();
         Assert.assertEquals(actualItem2Price, 9.99, "Item 2 price is not as expected");
 
         // Calculate the total
         double total = actualItem1Price + actualItem2Price;
         logger.info("Calculated the total price of items in the basket. ");
-        step2Page.finishButton();
 
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/checkout-step-two.html");
+        step2Page.check_Item_Prices_and_tax_payable();
+
+
 
         // Assert the total value
         Assert.assertEquals(total, expectedTotal, "Total price calculation is incorrect");
@@ -43,30 +66,7 @@ public class TestCheckoutStep2Page extends TestBaseClass {
 
     @AfterTest
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
-    @BeforeClass
-    public void loginBeforeProductTests() {
-
-        setupDriver(FIREFOX);
-        LoginPage loginPage = new LoginPage(driver);
-        driver.get("https://www.saucedemo.com/");
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
-        loginPage.clickLoginButton();
-        ProductPage productPage = new ProductPage(driver);
-        productPage.selectItem1();
-        productPage.selectItem2();
-        productPage.viewBasket();
-        productPage.checkoutButton();
-        CheckoutStep1Page step1Page = new CheckoutStep1Page(driver);
-        step1Page.enterFirstName("Abc");
-        step1Page.enterLastName("xyz");
-        step1Page.enterZipCode("123");
-        step1Page.checkoutContinue();
+       closeApplication();
     }
 
 }

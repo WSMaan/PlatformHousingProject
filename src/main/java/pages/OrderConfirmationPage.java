@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,6 +15,12 @@ public class OrderConfirmationPage {
 
     public OrderConfirmationPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void confirmOrder() {
+        orderConfirmationMessage();
+        selectMenu();
+
     }
 
     public String orderConfirmationMessage() {
@@ -39,7 +46,7 @@ public class OrderConfirmationPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("body")));
-        } catch (Exception e) {
+        } catch (TimeoutException e) {
             e.printStackTrace();
         }
     }

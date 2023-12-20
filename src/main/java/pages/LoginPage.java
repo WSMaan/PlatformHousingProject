@@ -12,13 +12,17 @@ public class LoginPage {
         this.driver = driver;
     }
 
-
-    public void enterUsername(String username) {
+public void login(String username,String password){
+        setUsername(username);
+        setPassword(password);
+        clickLoginButton();
+}
+    public void setUsername(String username) {
         WebElement usernameField = driver.findElement(By.xpath("//input[@id='user-name']"));
         usernameField.sendKeys(username);
     }
 
-    public void enterPassword(String password) {
+    public void setPassword(String password) {
         WebElement passwordField = driver.findElement(By.xpath("//input[@id='password']"));
         passwordField.sendKeys(password);
 

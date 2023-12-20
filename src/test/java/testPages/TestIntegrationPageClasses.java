@@ -1,48 +1,39 @@
 package testPages;
 
-import pages.*;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
+import pages.*;
 
-import static enums.Browsers.browsers.FIREFOX;
+import static enums.Browsers.browsers.EDGE;
 
 public class TestIntegrationPageClasses extends TestBaseClass {
     OrderConfirmationPage orderConfirmationPage;
 
     @Test
     public void integrationTest() {
-        setupDriver(FIREFOX);
-        LoginPage loginPage = new LoginPage(driver);
-        driver.get("https://www.saucedemo.com/");
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
-        loginPage.clickLoginButton();
+        setupDriver(EDGE);
+        //(FIREFOX);
+        //(CHROME);
 
 
-        ProductPage productPage = new ProductPage(driver);
-        productPage.selectItem1();
-        productPage.selectItem2();
-        productPage.viewBasket();
-        productPage.checkoutButton();
+        loginPage = new LoginPage(driver);
 
-        CheckoutStep1Page step1Page = new CheckoutStep1Page(driver);
-        step1Page.enterFirstName("Abc");
-        step1Page.enterLastName("xyz");
-        step1Page.enterZipCode("123");
-        step1Page.checkoutContinue();
+        openApplication();
+        loginPage.login(username, password);
 
-        CheckoutStep2Page step2Page = new CheckoutStep2Page(driver);
-        double actualItem1Price = step2Page.checkItem1("Sauce Labs Backpack");
-        double actualItem2Price = step2Page.checkItem2("Sauce Labs Bike Light");
-        step2Page.finishButton();
+        productPage = new ProductPage(driver);
+        productPage.select_Items_and_Checkout();
+
+        step1Page = new CheckoutStep1Page(driver);
+        step1Page.enter_Userdetails_and_Checkout(firstName, lastName, zipCode);
+
+        step2Page = new CheckoutStep2Page(driver);
+        step2Page.check_Item_Prices_and_tax_payable();
 
         orderConfirmationPage = new OrderConfirmationPage(driver);
 
-        orderConfirmationPage.orderConfirmationMessage();
-
-        orderConfirmationPage.selectMenu();
-
+        orderConfirmationPage.confirmOrder();
         orderConfirmationPage.logoutButton();
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/");
@@ -51,8 +42,6 @@ public class TestIntegrationPageClasses extends TestBaseClass {
 
     @AfterTest
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        closeApplication();
     }
 }

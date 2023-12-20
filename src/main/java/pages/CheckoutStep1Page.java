@@ -12,6 +12,12 @@ public class CheckoutStep1Page {
     public CheckoutStep1Page(WebDriver driver){
         this.driver=driver;
     }
+    public void enter_Userdetails_and_Checkout(String firstName,String lastName,String zipCode){
+        enterFirstName(firstName);
+        enterLastName(lastName);
+        enterZipCode(zipCode);
+        checkoutContinue();
+    }
     public void enterFirstName(String firstName){
         WebElement enterFirstName=driver.findElement(By.xpath("//input[@id='first-name']"));
         enterFirstName.sendKeys(firstName);

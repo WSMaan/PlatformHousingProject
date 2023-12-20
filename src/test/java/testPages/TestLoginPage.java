@@ -1,35 +1,39 @@
 package testPages;
 
-import pages.LoginPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
-import static enums.Browsers.browsers.FIREFOX;
+import static enums.Browsers.browsers.EDGE;
 
 public class TestLoginPage extends TestBaseClass {
+    protected LoginPage loginPage;
+
 
     private Logger logger = LoggerFactory.getLogger(TestLoginPage.class);
 
-    @BeforeClass
+    @BeforeTest
     public void setUp() {
-        setupDriver(FIREFOX);
+        setupDriver
+                (EDGE);
+        // (FIREFOX);
+        // (CHROME);
 
         loginPage = new LoginPage(driver);
-        driver.get("https://www.saucedemo.com/");
+        openApplication();
     }
 
     @Test
     public void testLogin() {
 
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
-        loginPage.clickLoginButton();
+        loginPage.login(username, password);
+
         String currentUrl = driver.getCurrentUrl();
 
-        if (currentUrl.equals("https://www.saucedemo.com/inventory.html")) {
+        if (currentUrl.equals(baseURL + "inventory.html")) {
             logger.info("Login successful");
         } else {
             logger.error("Login unsuccessful");
@@ -39,9 +43,7 @@ public class TestLoginPage extends TestBaseClass {
 
     @AfterTest
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        closeApplication();
     }
 }
 

@@ -15,8 +15,10 @@ import static enums.Browsers.browsers.FIREFOX;
 public class TestFailedLogin extends TestBaseClass {
 
     private Logger logger = LoggerFactory.getLogger(TestFailedLogin.class);
+
+    String baseURL = "https://www.saucedemo.com/";
     InValidLoginDetailsConfigReader inValidLoginDetailsConfigReader = new InValidLoginDetailsConfigReader();
-    LoginPage loginPage;
+
 
     String inValidUsername = inValidLoginDetailsConfigReader.getInValidUsername("user2");
     String inValidPassword = inValidLoginDetailsConfigReader.getInValidPassword("user2");
@@ -25,20 +27,22 @@ public class TestFailedLogin extends TestBaseClass {
     @BeforeTest
     public void setUp() {
 
-        setupDriver(FIREFOX);
+        setupDriver
+                (FIREFOX);
+                   //(CHROME);
+                  //(EDGE);
 
         loginPage = new LoginPage(driver);
-        driver.get("https://www.saucedemo.com/");
+        driver.get(baseURL);
     }
 
     @Test
     public void testLoginWithInvalidInfo() {
-        loginPage.enterUsername(inValidUsername);
-        loginPage.enterPassword(inValidPassword);
-        loginPage.clickLoginButton();
+        loginPage.login(inValidUsername,inValidPassword);
+
         String currentUrl = driver.getCurrentUrl();
 
-        if (currentUrl.equals("https://www.saucedemo.com/")) {
+        if (currentUrl.equals(baseURL)) {
             logger.info("Login with invalid info failed, as expected");
         } else {
             logger.error("Unexpected behavior: Login succeeded with invalid info");
