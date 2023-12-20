@@ -59,7 +59,7 @@
 
 ### Before each test (`@BeforeTest`), change the browser type according to the requirement.
 
-1. Open each test class.
+1. Open test class.
 2. Locate the `setUp()` method annotated with `@BeforeTest`.
 3. Inside the `setUp()` method, change the browser type according to your requirement (FIREFOX, CHROME, or EDGE).
 
