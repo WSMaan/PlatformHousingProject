@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-//Page class to get confirmation messages, navigate to the menu, and logout from the application.
+//Page class to get order confirmation messages, and logout from the application.
 public class OrderConfirmationPage {
     private WebDriver driver;
 
