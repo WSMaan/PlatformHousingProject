@@ -5,7 +5,8 @@
 ## Project Structure
 
 - **base:** Initializes WebDriver instances based on the specified browser type.
-
+- **enums:**
+    - `Browsers`: Enumerates the supported web browsers (CHROME, FIREFOX, EDGE).
 - **pages:**
     - `LoginPage`: Represents login functionality.
     - `ProductPage`: Interacts with products, selects items, views the shopping basket, and proceeds to checkout.
