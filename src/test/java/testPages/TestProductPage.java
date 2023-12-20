@@ -43,9 +43,7 @@ public class TestProductPage extends TestBaseClass {
 
     @AfterTest
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        closeApplication();
     }
 
 }
