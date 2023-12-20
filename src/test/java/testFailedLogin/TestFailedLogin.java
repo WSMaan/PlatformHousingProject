@@ -1,12 +1,12 @@
 package testFailedLogin;
 
-import pages.LoginPage;
-import testPages.TestBaseClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import pages.LoginPage;
+import testPages.TestBaseClass;
 import utility.InValidLoginDetailsConfigReader;
 
 import static enums.Browsers.browsers.FIREFOX;
@@ -29,8 +29,8 @@ public class TestFailedLogin extends TestBaseClass {
 
         setupDriver
                 (FIREFOX);
-                   //(CHROME);
-                  //(EDGE);
+        //(CHROME);
+        //(EDGE);
 
         loginPage = new LoginPage(driver);
         driver.get(baseURL);
@@ -38,7 +38,7 @@ public class TestFailedLogin extends TestBaseClass {
 
     @Test
     public void testLoginWithInvalidInfo() {
-        loginPage.login(inValidUsername,inValidPassword);
+        loginPage.login(inValidUsername, inValidPassword);
 
         String currentUrl = driver.getCurrentUrl();
 

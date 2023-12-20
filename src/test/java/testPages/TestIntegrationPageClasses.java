@@ -7,6 +7,9 @@ import pages.*;
 
 import static enums.Browsers.browsers.EDGE;
 
+// Test class for integration testing of all page classes
+
+//• logs in, adds 2 item(s) to the basket, proceeds to checkout and checks out successfully
 public class TestIntegrationPageClasses extends TestBaseClass {
     OrderConfirmationPage orderConfirmationPage;
 
