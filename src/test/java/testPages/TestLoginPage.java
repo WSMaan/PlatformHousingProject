@@ -36,6 +36,7 @@ public class TestLoginPage extends TestBaseClass {
         if (currentUrl.equals(baseURL + "inventory.html")) {
             logger.info("Login successful");
         } else {
+
             logger.error("Login unsuccessful");
         }
     }

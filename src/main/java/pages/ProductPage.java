@@ -1,8 +1,9 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 //Page class  where users can interact with different products.
 // It has methods to select items, view the shopping basket, and proceed to checkout.
@@ -11,6 +12,7 @@ public class ProductPage {
 
     public ProductPage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
     //  Selects the item  by clicking the "Add to Cart" button.
 
@@ -21,26 +23,35 @@ public class ProductPage {
         checkoutButton();
     }
 
-    public void selectItem1() {
-        WebElement backpackLocator = driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']"));
+    @FindBy(xpath = "//button[@id='add-to-cart-sauce-labs-backpack']")
+    private WebElement backpackLocator;
+
+    @FindBy(xpath = "//button[@id='add-to-cart-sauce-labs-bike-light']")
+    private WebElement lightLocator;
+
+    @FindBy(xpath = "//a[@class='shopping_cart_link']")
+    private WebElement basketLocator;
+
+    @FindBy(xpath = "//button[@id='checkout']")
+    private WebElement checkout;
+
+
+    private void selectItem1() {
         backpackLocator.click();
     }
 
     //  Selects the item  by clicking the "Add to Cart" button.
-    public void selectItem2() {
-        WebElement lightLocator = driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']"));
+    private void selectItem2() {
         lightLocator.click();
     }
 
     // Navigates to the shopping basket by clicking the "Shopping Cart" link
-    public void viewBasket() {
-        WebElement basketLocator = driver.findElement(By.xpath("//a[@class='shopping_cart_link']"));
+    private void viewBasket() {
         basketLocator.click();
     }
 
     // Proceeds to checkout by clicking the "Checkout" button.
-    public void checkoutButton() {
-        WebElement checkout = driver.findElement(By.xpath("//button[@id='checkout']"));
+    private void checkoutButton() {
         checkout.click();
     }
 }

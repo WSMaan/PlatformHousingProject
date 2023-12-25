@@ -1,8 +1,9 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 // Page object for the login functionality
 public class LoginPage {
@@ -10,6 +11,7 @@ public class LoginPage {
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     // Method to perform login with provided credentials
@@ -19,20 +21,26 @@ public class LoginPage {
         clickLoginButton();    // Click the login button
     }
 
-    public void setUsername(String username) {
-        WebElement usernameField = driver.findElement(By.xpath("//input[@id='user-name']"));
+
+    @FindBy(xpath = "//input[@id='user-name']")
+    private WebElement usernameField;
+
+    @FindBy(xpath = "//input[@id='password']")
+    private WebElement passwordField;
+
+    @FindBy(xpath = "//input[@id='login-button']")
+    private WebElement loginButton;
+
+    private void setUsername(String username) {
         usernameField.sendKeys(username);
     }
 
 
-    public void setPassword(String password) {
-        WebElement passwordField = driver.findElement(By.xpath("//input[@id='password']"));
+    private void setPassword(String password) {
         passwordField.sendKeys(password);
     }
 
-
-    public void clickLoginButton() {
-        WebElement loginButton = driver.findElement(By.xpath("//input[@id='login-button']"));
+    private void clickLoginButton() {
         loginButton.click();
     }
 }
