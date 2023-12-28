@@ -53,7 +53,6 @@ public class BaseClass {
         properties = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("browsers.properties")) {
             if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
                 return;
             }
             properties.load(input);

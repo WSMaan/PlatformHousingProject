@@ -18,9 +18,6 @@ public class TestBaseClass {
 
 
     protected BaseClass baseClass = new BaseClass();
-    protected URLconfigReader urlConfigReader = new URLconfigReader();
-    protected ValidLoginDetailsConfigReader validLoginDetailsConfigReader = new ValidLoginDetailsConfigReader();
-    protected CustomerShippingInfoConfigReader customerShippingInfoConfigReader = new CustomerShippingInfoConfigReader();
 
     protected void setupDriver(Browsers.browsers browser) {
         driver = baseClass.selectDriver(browser);
